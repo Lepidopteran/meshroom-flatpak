@@ -1,0 +1,41 @@
+app-id: org.AliceVision.Meshroom
+runtime: org.kde.Platform
+sdk: org.kde.Sdk
+runtime-version: "6.8"
+base: io.qt.PySide.BaseApp
+base-version: "6.8"
+command: meshroom
+finish-args:
+  - --share=network
+  - --socket=pulseaudio
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  - --talk-name=org.ayatana.indicator.application
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --filesystem=xdg-desktop
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-download
+  - --filesystem=xdg-music
+  - --filesystem=xdg-pictures
+  - --filesystem=xdg-videos
+  - --filesystem=/media
+  - --device=all
+cleanup:
+modules:
+  - "meshroom-python.json"
+  - name: meshroom
+    buildsystem: simple
+    no-python-timestamp-fix: true
+    build-commands:
+      - install meshroom.sh ${FLATPAK_DEST}/bin/meshroom
+    sources:
+      - type: git
+        url: https://github.com/alicevision/meshroom.git
+        commit: 5e5185e02c0e5294dfb2f519f4dbd1dfb2f855f3
+        tag: nightly
+      - type: script
+        dest-filename: meshroom.sh
+        commands:
+          - ls /
+          - python app/bin/meshroom/ui "$@"

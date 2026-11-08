@@ -1,0 +1,49 @@
+{
+    "name": "meshroom-python",
+    "buildsystem": "simple",
+    "build-commands": [],
+    "modules": [
+        {
+            "name": "python3-psutil",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"psutil>=5.6.7\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/aa/c6/d1ddf4abb55e93cebc4f2ed8b5d6dbad109ecb8d63748dd2b20ab5e57ebe/psutil-7.2.2.tar.gz",
+                    "sha256": "0746f5f8d406af344fd547f1c8daa5f5c33dbc293bb8d6a16d80b4bb88f59372"
+                }
+            ]
+        },
+        {
+            "name": "python3-tomli",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"tomli>=2.0.1\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/60/3f/3e3f8fd0919249b0200c80fbc4f9a1e70be19f9883da71dfb7f8b9ab8aca/tomli-2.5.0-py3-none-any.whl",
+                    "sha256": "32a7b79ac57a2e83670ce329ccf675798bc5a2094783a63676866b70503f2e2b"
+                }
+            ]
+        },
+        {
+            "name": "python3-pyseq",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pyseq==0.9.0\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/a5/75/b1c648f218c6e68517ba2af5ebb6a7ce71e4b98013acf648d5fb32eda6d0/pyseq-0.9.0.tar.gz",
+                    "sha256": "44bc558267c70c591188c3e79c4e1d601c24bc7341508d205b3efe117383ae2a"
+                }
+            ]
+        }
+    ]
+}
