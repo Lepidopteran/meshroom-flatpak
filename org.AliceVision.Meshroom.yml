@@ -29,6 +29,7 @@ modules:
     no-python-timestamp-fix: true
     build-commands:
       - install meshroom.sh ${FLATPAK_DEST}/bin/meshroom
+      - cp -a meshroom ${FLATPAK_DEST}/
     sources:
       - type: git
         url: https://github.com/alicevision/meshroom.git
@@ -37,5 +38,5 @@ modules:
       - type: script
         dest-filename: meshroom.sh
         commands:
-          - ls /
-          - python app/bin/meshroom/ui "$@"
+          - export PYTHONPATH=/app:${PYTHONPATH}
+          - exec python3 -m meshroom.ui "$@"
