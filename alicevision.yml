@@ -17,6 +17,39 @@ modules:
           project-id: 6845
           stable-only: true
           url-template: ttps://github.com/boostorg/boost/releases/download/boost-$version/boost-${major}.${minor}.${patch}-cmake.tar.gz
+  - name: eigen
+    buildsystem: cmake-ninja
+    builddir: true
+    cleanup:
+      - "*"
+    sources:
+      - type: git
+        url: https://gitlab.com/libeigen/eigen/
+        tag: 3.4.1
+        x-checker-data:
+          type: git
+          tag-pattern: ^([\\d.]+)$
+  - name: ceres-solver
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DEIGENSPARSE:BOOL=ON
+      - -DBUILD_TESTING:BOOL=OFF
+      - -DBUILD_EXAMPLES:BOOL=OFF
+      - -DBUILD_BENCHMARKS:BOOL=OFF
+    sources:
+      - type: git
+        url: https://github.com/ceres-solver/ceres-solver.git
+        commit: 85331393dc0dff09f6fb9903ab0c4bfa3e134b01
+        tag: 2.2.0
+    modules:
+      - name: glog
+        buildsystem: cmake-ninja
+        sources:
+          - type: git
+            url: https://github.com/google/glog
+            tag: v0.7.1
+            commit: 7b134a5c82c0c0b5698bb6bf7a835b230c5638e4
   - name: Imath
     buildsystem: cmake-ninja
     config-opts:
@@ -30,3 +63,30 @@ modules:
           project-id: 223366
           stable-only: true
           url-template: https://github.com/AcademySoftwareFoundation/Imath/archive/v$version/imath-$version.tar.gz
+  - name: openexr
+    buildsystem: cmake-ninja
+    cleanup:
+      - /bin
+    sources:
+      - type: archive
+        url: https://github.com/AcademySoftwareFoundation/openexr/archive/v3.1.1.tar.gz
+        sha256: 045254e201c0f87d1d1a4b2b5815c4ae54845af2e6ec0ab88e979b5fdb30a86e
+        x-checker-data:
+          type: anitya
+          project-id: 13289
+          stable-only: true
+          url-template: https://github.com/AcademySoftwareFoundation/openexr/archive/v$version.tar.gz
+
+  - name: AliceVision
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DALICEVISION_BUILD_DOC:BOOL=OFF
+      - -DALICEVISION_BUILD_TESTS:BOOL=OFF
+      - -DALICEVISION_BUILD_EXAMPLES:BOOL=OFF
+      - -DALICEVISION_USE_ALEMBIC:BOOL=ON
+      - -DALICEVISION_USE_CUDA:BOOL=OFF
+    sources:
+      - type: git
+        tag: nightly
+        url: https://github.com/alicevision/AliceVision.git
