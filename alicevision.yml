@@ -1,0 +1,32 @@
+name: AliceVision
+modules:
+  - name: boost
+    buildsystem: simple
+    build-commands:
+      - ./bootstrap.sh --prefix=${FLATPAK_DEST}
+      - ./b2 install --prefix=${FLATPAK_DEST} link=shared runtime-link=shared
+        cxxflags="$CXXFLAGS" linkflags="$LDFLAGS" -j $FLATPAK_BUILDER_N_JOBS
+    cleanup:
+      - "*"
+    sources:
+      - type: archive
+        url: https://github.com/boostorg/boost/releases/download/boost-1.92.0/boost-1.92.0-cmake.tar.gz
+        sha256: f51707c27359a0df0cac1beada86de31bb5eed5e8285592dadec384df99c2984
+        x-checker-data:
+          type: anitya
+          project-id: 6845
+          stable-only: true
+          url-template: ttps://github.com/boostorg/boost/releases/download/boost-$version/boost-${major}.${minor}.${patch}-cmake.tar.gz
+  - name: Imath
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DPYTHON:BOOL=ON
+    sources:
+      - type: archive
+        url: https://github.com/AcademySoftwareFoundation/Imath/releases/download/v3.2.3/Imath-3.2.3.tar.gz
+        sha256: 72f498e7073890a2a1b870e453908a07c9725f9d1384527043a38578bfb4ef31
+        x-checker-data:
+          type: anitya
+          project-id: 223366
+          stable-only: true
+          url-template: https://github.com/AcademySoftwareFoundation/Imath/archive/v$version/imath-$version.tar.gz
